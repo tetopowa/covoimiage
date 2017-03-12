@@ -28,10 +28,10 @@ class SecurityController extends Controller
         $formLogin=$this->createForm(LoginForm::class,array(
             '_username' => $lastUsername,
         ));
-        return $this->render(
-            'index/index.html.twig',
+        return $this->render(':security:login.html.twig',
             array(
                 'form' => $formLogin->createView(),
+                'last_username' => $lastUsername,
                 'error'         => $error,
             ));
     }

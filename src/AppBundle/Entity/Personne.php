@@ -48,7 +48,7 @@ class Personne
 	 */
 	private $dateNaissance;
 	/**
-	 * @CSTRT\Choice(choices = {"Homme", "Femme"}, message = "Choisisez un sexe valide.")
+	 * @CSTRT\Choice(choices = {"1", "0"}, message = "Choisisez un sexe valide.")
      * @CSTRT\NotBlank(groups={"Profile"})
 	 * @ORM\Column(name="sexe", type="boolean")
 	 */
@@ -156,6 +156,10 @@ class Personne
     {
         return $this->dateNaissance;
     }
+    public function getDateNaissanceString()
+    {
+        return $this->dateNaissance->format('Y-m-d');
+    }
 
     /**
      * Set sexe
@@ -166,13 +170,7 @@ class Personne
      */
     public function setSexe($sexe)
     {
-		if(strcmp($sexe,"Homme")==0){
-			$this->sexe = 1;
-		}else{
-			$this->sexe = 0;
-		}
-        
-
+        $this->sexe = $sexe;
         return $this;
     }
 
@@ -184,10 +182,6 @@ class Personne
     public function getSexe()
     {
         return $this->sexe;
-    }
-	public static function getSexes()
-    {
-        return array('Homme', 'Femme');
     }
     /**
      * Add voiture

@@ -6,6 +6,7 @@ use AppBundle\Entity\Personne;
 use AppBundle\Form\PersonneForm;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Repository\UserRepository;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 use Symfony\Component\Routing\Annotation\Route;
 use AppBundle\Entity\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -13,20 +14,20 @@ use Symfony\Component\HttpFoundation\Request;
 class ProfileController extends Controller
 {
     /**
-     * @Route("/profile", name="profile")
+     * @Route("/initprofile", name="profile")
      * @Security("has_role('ROLE_USER')")
      */
     public function newProfileAction(request $request)
     {
-        $pers= new Personne();
-        $error=null;
+        $pers = new Personne();
+        $error = null;
         $em = $this->getDoctrine()->getManager();
-        $userid=$this->getUser()->getID_user();
-        $pers1=$em->getRepository('AppBundle:Personne')->loadProfile($userid);
-        if($pers1){
-            return $this->updateProfileAction($pers1);
+        $userid = $this->getUser()->getID_user();
+        $pers1 = $em->getRepository('AppBundle:Personne')->loadProfile($userid);
+        if ($pers1) {
+            return $this->showProfileAction($pers1);
         }
-        $form = $this->createForm(PersonneForm::class,$pers);
+        $form = $this->createForm(PersonneForm::class, $pers);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             $pers->setIDPersonne($userid);
@@ -36,21 +37,45 @@ class ProfileController extends Controller
 
         return $this->render('Profile/FillIn.html.twig', array(
             'form' => $form->createView(),
-            'error'         => $error,
+            'error' => $error,
         ));
     }
+
     /**
-     * @Route("/modprofile", name="modprofile")
+     * @Route("/myprofile", name="myProfile")
      * @Security("has_role('ROLE_USER')")
      */
-    public function updateProfileAction(Personne $personne)
+    public function showProfileAction(Personne $personne)
     {
-
-        $formod=$this->createForm(PersonneForm::class,$personne);
-        return $this->render('Profile/FillIn.html.twig', array(
-            'form' => $formod->createView(),
-            'error' =>  null,
+        return $this->render('Profile/showProfile.html.twig', array(
+            'profile' => $personne,
+            'error' => null,
         ));
         //HANDLING MODIFY FORM
     }
+
+    /**
+     * @Route("/modifyprofile", name="modifyProfile")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function modifyProfileAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $userid = $this->getUser()->getID_user();
+        $profile = $em->getRepository('AppBundle:Personne')->loadProfile($userid);
+        $form = $this->createForm(PersonneForm::class, $profile);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $profile->setIDPersonne($userid);
+            $em->persist($profile);
+            $em->flush();
+            return $this->showProfileAction($profile);
+        }
+
+        return $this->render('Profile/FillIn.html.twig', array(
+            'form' => $form->createView(),
+            'error' => null,
+        ));
+    }
 }
+        //HANDLING MODIFY FORM

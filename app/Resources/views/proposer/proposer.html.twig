@@ -22,7 +22,8 @@ href="{{asset('css/index/bootstrap-datetimepicker.css')}}">
     <div class="row">
       <div class="col-md-6">
         <div class="container-fluid">
-          <form>
+          <!--<form>-->
+              {{ form_start(form,{'attr':{'accept-charset':'UTF-8','action':path('login')}}) }}
             <h2 class="section-heading">Itinéraire</h2>
             <div class="form-group row">
               <div class="col-md-10">
@@ -30,7 +31,8 @@ href="{{asset('css/index/bootstrap-datetimepicker.css')}}">
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-screenshot"></span>
                   </span>
-                  <input type="text" class="form-control" placeholder="Départ" id="depart">
+                    {{ form_widget(form._villedep,{'attr':{'class': 'form-control','placeholder':'Départ'}})}}
+                  <!--<input type="text" class="form-control" placeholder="Départ" id="depart"> -->
                 </div>
               </div>
             </div>
@@ -40,7 +42,18 @@ href="{{asset('css/index/bootstrap-datetimepicker.css')}}">
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-screenshot"></span>
                   </span>
-                  <input type="text" class="form-control" placeholder="Destination" id="destination">
+                    {{ form_widget(form._villefin,{'attr':{'class': 'form-control','placeholder':'Destination'}})}}
+                  <!--<input type="text" class="form-control" placeholder="Destination" id="destination">-->
+                </div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <div class="col-md-10">
+                <div class="input-group">
+                  <span class="input-group-addon">
+                    <span class="glyphicon glyphicon-screenshot"></span>
+                  </span>
+                  <!--<input type="text" class="form-control" placeholder="Destination" id="destination">-->
                 </div>
               </div>
             </div>
@@ -51,11 +64,13 @@ href="{{asset('css/index/bootstrap-datetimepicker.css')}}">
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                   </span>
-                  <input type='text' class="form-control" id='datetimepicker' />
+                  {{ form_widget(form._heuredep,{'attr':{'class':'form-control' }})}}
+                  <!--<input type='text' class="form-control" id='datetimepicker' />-->
                 </div>
               </div>
               <div class="col-sm-2">
-                <select class="form-control" id="heure">
+                {{ form_widget(form._heure,{'attr':{'class':'form-control' }}) }}
+                <!--<select class="form-control" id="heure">
                   <option value="0">0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -80,27 +95,30 @@ href="{{asset('css/index/bootstrap-datetimepicker.css')}}">
                   <option value="21">21</option>
                   <option value="22">22</option>
                   <option value="23">23</option>
-                </select>
+                </select>-->
               </div>
               <div class="col-sm-1">
                 <h5> h </h5>
               </div>
               <div class="col-sm-2">
-                <select class="form-control" id="minutes">
+                  {{ form_widget(form._min,{'attr':{'class':'form-control' }}) }}
+                <!--<select class="form-control" id="minutes">
                   <option value="00">00</option>
                   <option value="10">10</option>
                   <option value="20">20</option>
                   <option value="30">30</option>
                   <option value="40">40</option>
                   <option value="50">50</option>
-                </select>
+                </select>-->
               </div>
               <div class="col-sm-1">
                 <h5> min </h5>
               </div>
             </div>
-            <button type="submit" class="btn btn-primary">Continuer</button>
-          </form>
+
+            {{ form_end(form)}}
+          <button type="submit" class="btn btn-primary">Continuer</button>
+          <!--</form>-->
         </div>
       </div>
       <div class="col-md-6">
@@ -127,8 +145,8 @@ function initMap() {
   var directionsDisplay = new google.maps.DirectionsRenderer;
   directionsDisplay.setMap(map);
 
-  var origin_input = document.getElementById('depart');
-  var destination_input = document.getElementById('destination');
+  var origin_input = document.getElementById('app_bundle_trajet_form__villedep');
+  var destination_input = document.getElementById('app_bundle_trajet_form__villefin');
   var waypoint_input = document.getElementById('etape');
 
   var origin_autocomplete = new google.maps.places.Autocomplete(origin_input);
@@ -251,7 +269,7 @@ function initMap() {
   </script>
   <script type="text/javascript">
   $(function () {
-    $('#datetimepicker').datetimepicker({
+    $('#app_bundle_trajet_form__heuredep').datetimepicker({
       minDate: new Date(),
       format: 'DD/MM/YYYY'
     });

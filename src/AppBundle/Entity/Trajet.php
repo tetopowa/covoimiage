@@ -22,6 +22,7 @@ class Trajet
 	private $nbplaces;
 	/**
 	 * Un personne est conducteur par trajet
+     * @CSTRT\NotBlank(groups={"Trajet"})
 	 * Une personne peut être conducteur pour plusieurs trajet
 	 * @ORM\Column(name="ID_conducteur", type="integer")
 	 * @ORM\ManyToOne(targetEntity="Personne")
@@ -43,12 +44,14 @@ class Trajet
     /**
      * @ORM\Column(name="villedep", type="string")
      *
+     * @CSTRT\NotBlank(groups={"Trajet"})
      *
      */
     private $villedep;
     /**
      * @ORM\Column(name="ID_villedep", type="string")
      *
+     * @CSTRT\NotBlank(groups={"Trajet"})
      */
     private $ID_villedep;
     /**
@@ -59,9 +62,63 @@ class Trajet
     private $villefin;
     /**
      * @ORM\Column(name="ID_villefin", type="string")
+     v* @CSTRT\NotBlank(groups={"Trajet"})
      *
      */
     private $ID_villefin;
+
+    /**
+     * @CSTRT\NotBlank(groups={"Trajet"})
+     * @ORM\Column(name="heuredep", type="date")
+     *
+     */
+    private $heuredep;
+    /**
+     * @CSTRT\NotBlank(groups={"Trajet"})
+     * @ORM\Column(name="min", type="integer")
+     *
+     */
+    private $min;
+    /**
+     * @CSTRT\NotBlank(groups={"Trajet"})
+     * @ORM\Column(name="heure", type="integer")
+     *
+     */
+    private $heure;
+
+    /**
+     * @return mixed
+     */
+    public function getMin()
+    {
+        return $this->min;
+    }
+
+    /**
+     * @param mixed $min
+     */
+    public function setMin($min)
+    {
+        $this->min = $min;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHeure()
+    {
+        return $this->heure;
+    }
+
+    /**
+     * @param mixed $heure
+     */
+    public function setHeure($heure)
+    {
+        $this->heure = $heure;
+        return $this;
+    }
     /**
      * Get iDTrajet
      *
@@ -73,6 +130,27 @@ class Trajet
         return $this->ID_trajet;
     }
 
+    /**
+     * Get heuredep
+     *
+     * @return integer
+     */
+
+    public function getHeuredep()
+    {
+        return $this->heuredep;
+    }
+    /**
+     * Get iDTrajet
+     *
+     * @return integer
+     */
+
+    public function setheureDep($heure)
+    {
+        $this->heuredep=$heure;
+        return $this;
+    }
     /**
      * Set nbplaces
      *

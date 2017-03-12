@@ -28,8 +28,8 @@ class PersonneForm extends AbstractType
                 'years' => range(date('Y') - 100, date('Y') - 18)))
             ->add('_sexe',ChoiceType::class, array(
                     'choices'  => array(
-                        'Masculin' => true,
-                        'Feminin' => false,
+                        'Masculin' => 1,
+                        'Feminin' => 0,
             ),))
             ->getForm();
     }
