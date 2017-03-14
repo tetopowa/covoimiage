@@ -62,7 +62,7 @@ class Trajet
     private $villefin;
     /**
      * @ORM\Column(name="ID_villefin", type="string")
-     v* @CSTRT\NotBlank(groups={"Trajet"})
+     * @CSTRT\NotBlank(groups={"Trajet"})
      *
      */
     private $ID_villefin;
