@@ -24,12 +24,11 @@ class TrajetRepository
             ->createQueryBuilder(t)
             ->select('t')
             ->from('AppBundle:Trajet','t')
-            ->join('AppBundle:Etape','e')
-            ->join('AppBundle:Ville','v')
-            ->where('v.nomVille = :source AND e.H_etape >= :now')
+            ->where('t.idVilleDep = :source AND t.idVilleFin >= :dest AND t.heuredep >= :now')
             ->setParameter('source', $source)
             ->setParameter('dest', $destination)
             ->setParameter('now',$time)
-            ->getQuery();
+            ->getQuery(),
+
     }
 }

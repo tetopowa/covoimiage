@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="Trajet")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TrajetRepository")
  */
 class Trajet
 {
