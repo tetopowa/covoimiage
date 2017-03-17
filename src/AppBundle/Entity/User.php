@@ -130,4 +130,28 @@ class User implements UserInterface
     }
 
 // more getters/setters
+
+    /**
+     * Get iDUser
+     *
+     * @return integer
+     */
+    public function getIDUser()
+    {
+        return $this->ID_user;
+    }
+
+    /**
+     * Set roles
+     *
+     * @param array $roles
+     *
+     * @return User
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
 }

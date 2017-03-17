@@ -1,0 +1,4 @@
+
+_load_trajet:
+    path:     /LoadTrajet
+    defaults: { _controller: AppBundle:Trajet:LoadTrajet }

@@ -10,7 +10,7 @@
   <!-- Bootstrap Core CSS -->
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
   <!-- Custom Fonts -->
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/3.3.7/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="{{asset('css/index/landing-page.css')}}">
   {% block stylesheets %}{% endblock %}
@@ -38,6 +38,7 @@
           {% if is_granted('ROLE_USER') %}
             <li><a href="{{ path('logout') }}">Se déconnecter</a></li>
             <li><a href="{{ path('profile') }}">Profil</a></li>
+            <li><a href="{{path('my_trajets')}}">Mes annonces</a></li>
           {% else %}
           <li>
             <a href="{{path('user_registration')}}">Inscription</a>

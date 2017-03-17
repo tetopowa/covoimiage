@@ -1,11 +1,14 @@
 <?php
 namespace AppBundle\Entity;
+use Doctrine\DBAL\Types\DateType;
+use Doctrine\DBAL\Types\StringType;
 use Symfony\Component\Validator\Constraints as CSTRT;
 use Doctrine\ORM\Mapping as ORM;
-
+use AppBundle\Repository\PersonneRepository;
 /**
  * @ORM\Entity
  * @ORM\Table(name="Personne")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PersonneRepository")
  */
 class Personne
 {
@@ -20,7 +23,7 @@ class Personne
 	private $ID_personne;
 	/**
 	 * @ORM\Column(name="nom", type="string")
-	 * @CSTRT\NotBlank()
+     * @CSTRT\NotBlank(groups={"Profile"})
 	 * @CSTRT\Regex(
      *     pattern="/\d/",
      *     match=false,
@@ -34,18 +37,19 @@ class Personne
      *     match=false,
      *     message="Ton prenom ne peut pas contenir de nombre"
 	 *     )
-	 * @CSTRT\NotBlank()
+     * @CSTRT\NotBlank(groups={"Profile"})
 	 * @ORM\Column(name="prenom", type="string")
 	 */
 	private $prenom;
 	/**
-	 * @CSTRT\NotBlank()
+     * @CSTRT\NotBlank(groups={"Profile"})
 	 * @CSTRT\LessThanOrEqual("-18 years")
 	 * @ORM\Column(name="dateNaissance", type="date")
 	 */
 	private $dateNaissance;
 	/**
-	 * @CSTRT\Choice(choices = {"Homme", "Femme"}, message = "Choisisez un sexe valide.")
+	 * @CSTRT\Choice(choices = {"1", "0"}, message = "Choisisez un sexe valide.")
+     * @CSTRT\NotBlank(groups={"Profile"})
 	 * @ORM\Column(name="sexe", type="boolean")
 	 */
 	private $sexe;
@@ -134,8 +138,12 @@ class Personne
      */
     public function setDateNaissance($dateNaissance)
     {
-        $this->dateNaissance = date_create($dateNaissance);
-
+        if(!$dateNaissance instanceof StringType)
+        {
+            $this->dateNaissance = $dateNaissance;
+        }else{
+            $this->dateNaissance = date_create($dateNaissance);
+        }
         return $this;
     }
 
@@ -148,6 +156,10 @@ class Personne
     {
         return $this->dateNaissance;
     }
+    public function getDateNaissanceString()
+    {
+        return $this->dateNaissance->format('Y-m-d');
+    }
 
     /**
      * Set sexe
@@ -158,13 +170,7 @@ class Personne
      */
     public function setSexe($sexe)
     {
-		if(strcmp($sexe,"Homme")==0){
-			$this->sexe = 1;
-		}else{
-			$this->sexe = 0;
-		}
-        
-
+        $this->sexe = $sexe;
         return $this;
     }
 
@@ -176,10 +182,6 @@ class Personne
     public function getSexe()
     {
         return $this->sexe;
-    }
-	public static function getSexes()
-    {
-        return array('Homme', 'Femme');
     }
     /**
      * Add voiture
@@ -213,5 +215,19 @@ class Personne
     public function getVoitures()
     {
         return $this->voitures;
+    }
+
+    /**
+     * Set iDPersonne
+     *
+     * @param integer $iDPersonne
+     *
+     * @return Personne
+     */
+    public function setIDPersonne($iDPersonne)
+    {
+        $this->ID_personne = $iDPersonne;
+
+        return $this;
     }
 }

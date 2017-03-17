@@ -23,7 +23,7 @@ href="{{asset('css/index/bootstrap-datetimepicker.css')}}">
       <div class="col-md-6">
         <div class="container-fluid">
           <!--<form>-->
-              {{ form_start(form,{'attr':{'accept-charset':'UTF-8','action':path('login')}}) }}
+              {{ form_start(form,{'attr':{'accept-charset':'UTF-8'}}) }}
             <h2 class="section-heading">Itinéraire</h2>
             <div class="form-group row">
               <div class="col-md-10">
@@ -47,16 +47,8 @@ href="{{asset('css/index/bootstrap-datetimepicker.css')}}">
                 </div>
               </div>
             </div>
-            <div class="form-group row">
-              <div class="col-md-10">
-                <div class="input-group">
-                  <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-screenshot"></span>
-                  </span>
-                  <!--<input type="text" class="form-control" placeholder="Destination" id="destination">-->
-                </div>
-              </div>
-            </div>
+            {{ form_widget(form.ID_villedep)}}
+            {{ form_widget(form.ID_villefin)}}
             <h2 class="section-heading">Date & Horaire</h2>
             <div class="form-group row">
               <div class="col-sm-5">
@@ -64,60 +56,27 @@ href="{{asset('css/index/bootstrap-datetimepicker.css')}}">
                   <span class="input-group-addon">
                     <span class="glyphicon glyphicon-calendar"></span>
                   </span>
-                  {{ form_widget(form._heuredep,{'attr':{'class':'form-control' }})}}
-                  <!--<input type='text' class="form-control" id='datetimepicker' />-->
+                  {{ form_widget(form._date,{'attr':{'class':'form-control' }})}}
                 </div>
               </div>
               <div class="col-sm-2">
                 {{ form_widget(form._heure,{'attr':{'class':'form-control' }}) }}
-                <!--<select class="form-control" id="heure">
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                  <option value="11">11</option>
-                  <option value="12">12</option>
-                  <option value="13">13</option>
-                  <option value="14">14</option>
-                  <option value="15">15</option>
-                  <option value="16">16</option>
-                  <option value="17">17</option>
-                  <option value="18">18</option>
-                  <option value="19">19</option>
-                  <option value="20">20</option>
-                  <option value="21">21</option>
-                  <option value="22">22</option>
-                  <option value="23">23</option>
-                </select>-->
               </div>
               <div class="col-sm-1">
                 <h5> h </h5>
               </div>
               <div class="col-sm-2">
                   {{ form_widget(form._min,{'attr':{'class':'form-control' }}) }}
-                <!--<select class="form-control" id="minutes">
-                  <option value="00">00</option>
-                  <option value="10">10</option>
-                  <option value="20">20</option>
-                  <option value="30">30</option>
-                  <option value="40">40</option>
-                  <option value="50">50</option>
-                </select>-->
               </div>
               <div class="col-sm-1">
                 <h5> min </h5>
               </div>
             </div>
+            {{form_widget(form._nbplaces)}}
+            <button type="submit" class="btn btn-primary">Continuer</button>
 
             {{ form_end(form)}}
-          <button type="submit" class="btn btn-primary">Continuer</button>
+
           <!--</form>-->
         </div>
       </div>
@@ -133,6 +92,7 @@ href="{{asset('css/index/bootstrap-datetimepicker.css')}}">
 {% block javascripts %}
 <script>
 function initMap() {
+
   var origin_place_id = null;
   var destination_place_id = null;
   var waypoint_place_id = null;
@@ -182,6 +142,7 @@ function initMap() {
     // If the place has a geometry, store its place ID and route if we have
     // the other place ID
     origin_place_id = place.place_id;
+    document.getElementById('app_bundle_trajet_form_ID_villedep').value = place.place_id;
     route(origin_place_id, destination_place_id, waypoint_place_id ,travel_mode,
       directionsService, directionsDisplay);
     });
@@ -197,6 +158,7 @@ function initMap() {
       // If the place has a geometry, store its place ID and route if we have
       // the other place ID
       destination_place_id = place.place_id;
+      document.getElementById('app_bundle_trajet_form_ID_villefin').value = place.place_id;
       route(origin_place_id, destination_place_id, waypoint_place_id ,travel_mode,
         directionsService, directionsDisplay);
       });
@@ -269,11 +231,10 @@ function initMap() {
   </script>
   <script type="text/javascript">
   $(function () {
-    $('#app_bundle_trajet_form__heuredep').datetimepicker({
+    $('#app_bundle_trajet_form__date').datetimepicker({
       minDate: new Date(),
       format: 'DD/MM/YYYY'
     });
-
   });
   </script>
   {% endblock %}

@@ -4,343 +4,374 @@ use Symfony\Component\Validator\Constraints as CSTRT;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="Trajet")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\TrajetRepository")
- */
+* @ORM\Entity
+* @ORM\Table(name="Trajet")
+* @ORM\Entity(repositoryClass="AppBundle\Repository\TrajetRepository")
+*/
 class Trajet
 {
 	/**
-	 * Clé primaire de Trajet
-	 * @ORM\Column(name="ID_trajet", type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
+	* Clé primaire de Trajet
+	* @ORM\Column(name="ID_trajet", type="integer")
+	* @ORM\Id
+	* @ORM\GeneratedValue(strategy="AUTO")
+	*/
 	private $ID_trajet;
 	/**
-	 * @ORM\Column(name="nbplaces", type="integer")
-	 */
+	* @ORM\Column(name="nbplaces", type="integer")
+	*/
 	private $nbplaces;
 	/**
-	 * Un personne est conducteur par trajet
-     * @CSTRT\NotBlank(groups={"Trajet"})
-	 * Une personne peut être conducteur pour plusieurs trajet
-	 * @ORM\Column(name="ID_conducteur", type="integer")
-	 * @ORM\ManyToOne(targetEntity="Personne")
-     * @ORM\JoinColumn(name="ID_conducteur", referencedColumnName="ID_personne")
-	 */
+	* Un personne est conducteur par trajet
+	* @CSTRT\NotBlank(groups={"Trajet"})
+	* Une personne peut être conducteur pour plusieurs trajet
+	* @ORM\Column(name="ID_conducteur", type="integer")
+	* @ORM\ManyToOne(targetEntity="Personne")
+	* @ORM\JoinColumn(name="ID_conducteur", referencedColumnName="ID_personne")
+	*/
 	private $ID_conducteur;
 	/**
-	 * Un trajet utilise un seul vehicule
-	 * Un vehicule peut etre utlisé pour plusieurs trajets
-	 * @ORM\Column(name="ID_vehicule", type="integer")
-	 * @ORM\ManyToOne(targetEntity="Vehicule")
-     * @ORM\JoinColumn(name="ID_vehicule", referencedColumnName="ID_vehicule")
-	 */
+	* Un trajet utilise un seul vehicule
+	* Un vehicule peut etre utlisé pour plusieurs trajets
+	* @ORM\Column(name="ID_vehicule", type="integer", nullable=true)
+	* @ORM\ManyToOne(targetEntity="Vehicule")
+	* @ORM\JoinColumn(name="ID_vehicule", referencedColumnName="ID_vehicule")
+	*/
 	private $ID_vehicule;
 	/**
-	 * @ORM\Column(name="description", type="string")
-	 */
+	* @ORM\Column(name="description", type="string", nullable=true)
+	*/
 	private $description;
-    /**
-     * @ORM\Column(name="villedep", type="string")
-     *
-     * @CSTRT\NotBlank(groups={"Trajet"})
-     *
-     */
-    private $villedep;
-    /**
-     * @ORM\Column(name="ID_villedep", type="string")
-     *
-     * @CSTRT\NotBlank(groups={"Trajet"})
-     */
-    private $ID_villedep;
-    /**
-     * @ORM\Column(name="villefin", type="string")
-     *
-     *
-     */
-    private $villefin;
-    /**
-     * @ORM\Column(name="ID_villefin", type="string")
-     * @CSTRT\NotBlank(groups={"Trajet"})
-     *
-     */
-    private $ID_villefin;
+	/**
+	* @ORM\Column(name="villedep", type="string")
+	*
+	* @CSTRT\NotBlank(groups={"Trajet"})
+	*
+	*/
+	private $villedep;
+	/**
+	* @ORM\Column(name="ID_villedep", type="string")
+	*
+	* @CSTRT\NotBlank(groups={"Trajet"})
+	*/
+	private $ID_villedep;
+	/**
+	* @ORM\Column(name="villefin", type="string")
+	*
+	*
+	*/
+	private $villefin;
+	/**
+	* @ORM\Column(name="ID_villefin", type="string")
+	* @CSTRT\NotBlank(groups={"Trajet"})
+	*
+	*/
+	private $ID_villefin;
 
-    /**
-     * @CSTRT\NotBlank(groups={"Trajet"})
-     * @ORM\Column(name="heuredep", type="date")
-     *
-     */
-    private $heuredep;
-    /**
-     * @CSTRT\NotBlank(groups={"Trajet"})
-     * @ORM\Column(name="min", type="integer")
-     *
-     */
-    private $min;
-    /**
-     * @CSTRT\NotBlank(groups={"Trajet"})
-     * @ORM\Column(name="heure", type="integer")
-     *
-     */
-    private $heure;
+	/**
+	* @CSTRT\NotBlank(groups={"Trajet"})
+	* @ORM\Column(name="date", type="date")
+	*
+	*/
+	private $date;
+	/**
+	* @CSTRT\NotBlank(groups={"Trajet"})
+	* @ORM\Column(name="min", type="integer")
+	*
+	*/
+	private $min;
+	/**
+	* @CSTRT\NotBlank(groups={"Trajet"})
+	* @ORM\Column(name="heure", type="integer")
+	*
+	*/
+	private $heure;
 
-    /**
-     * @return mixed
-     */
-    public function getMin()
-    {
-        return $this->min;
-    }
+	/**
+	*@ORM\Column(name="reservedBy", type="integer")
+	*Plusieurs personnes qui ont reservé le trajet
+	* @ORM\ManyToMany(targetEntity="Personne")
+	* @ORM\JoinColumn(name="ID_conducteur", referencedColumnName="ID_personne")
+	*@ORM\JoinColumn(nullable=true)
+	*/
+	private $reservedBy;
 
-    /**
-     * @param mixed $min
-     */
-    public function setMin($min)
-    {
-        $this->min = $min;
-        return $this;
-    }
+	/**
+	* Get iDTrajet
+	*
+	* @return integer
+	*/
+	public function getID_Trajet()
+	{
+		return $this->ID_trajet;
+	}
 
-    /**
-     * @return mixed
-     */
-    public function getHeure()
-    {
-        return $this->heure;
-    }
+	/**
+	* Set nbplaces
+	*
+	* @param integer $nbplaces
+	*
+	* @return Trajet
+	*/
+	public function setNbplaces($nbplaces)
+	{
+		$this->nbplaces = $nbplaces;
 
-    /**
-     * @param mixed $heure
-     */
-    public function setHeure($heure)
-    {
-        $this->heure = $heure;
-        return $this;
-    }
-    /**
-     * Get iDTrajet
-     *
-     * @return integer
-     */
+		return $this;
+	}
 
-    public function getIDTrajet()
-    {
-        return $this->ID_trajet;
-    }
+	/**
+	* Get nbplaces
+	*
+	* @return integer
+	*/
+	public function getNbplaces()
+	{
+		return $this->nbplaces;
+	}
 
-    /**
-     * Get heuredep
-     *
-     * @return integer
-     */
+	/**
+	* Set iDConducteur
+	*
+	* @param integer $iDConducteur
+	*
+	* @return Trajet
+	*/
+	public function setIDConducteur($iDConducteur)
+	{
+		$this->ID_conducteur = $iDConducteur;
 
-    public function getHeuredep()
-    {
-        return $this->heuredep;
-    }
-    /**
-     * Get iDTrajet
-     *
-     * @return integer
-     */
+		return $this;
+	}
 
-    public function setheureDep($heure)
-    {
-        $this->heuredep=$heure;
-        return $this;
-    }
-    /**
-     * Set nbplaces
-     *
-     * @param integer $nbplaces
-     *
-     * @return Trajet
-     */
-    public function setNbplaces($nbplaces)
-    {
-        $this->nbplaces = $nbplaces;
+	/**
+	* Get iDConducteur
+	*
+	* @return integer
+	*/
+	public function getID_Conducteur()
+	{
+		return $this->ID_conducteur;
+	}
 
-        return $this;
-    }
+	/**
+	* Set iDVehicule
+	*
+	* @param integer $iDVehicule
+	*
+	* @return Trajet
+	*/
+	public function setIDVehicule($iDVehicule)
+	{
+		$this->ID_vehicule = $iDVehicule;
 
-    /**
-     * Get nbplaces
-     *
-     * @return integer
-     */
-    public function getNbplaces()
-    {
-        return $this->nbplaces;
-    }
+		return $this;
+	}
 
-    /**
-     * Set iDConducteur
-     *
-     * @param integer $iDConducteur
-     *
-     * @return Trajet
-     */
-    public function setIDConducteur($iDConducteur)
-    {
-        $this->ID_conducteur = $iDConducteur;
+	/**
+	* Get iDVehicule
+	*
+	* @return integer
+	*/
+	public function getIDVehicule()
+	{
+		return $this->ID_vehicule;
+	}
 
-        return $this;
-    }
+	/**
+	* Set description
+	*
+	* @param string $description
+	*
+	* @return Trajet
+	*/
+	public function setDescription($description)
+	{
+		$this->description = $description;
 
-    /**
-     * Get iDConducteur
-     *
-     * @return integer
-     */
-    public function getIDConducteur()
-    {
-        return $this->ID_conducteur;
-    }
+		return $this;
+	}
 
-    /**
-     * Set iDVehicule
-     *
-     * @param integer $iDVehicule
-     *
-     * @return Trajet
-     */
-    public function setIDVehicule($idvehicule)
-    {
-        $this->ID_vehicule = $idvehicule;
+	/**
+	* Get description
+	*
+	* @return string
+	*/
+	public function getDescription()
+	{
+		return $this->description;
+	}
 
-        return $this;
-    }
+	/**
+	* Set villedep
+	*
+	* @param string $villedep
+	*
+	* @return Trajet
+	*/
+	public function setVilledep($villedep)
+	{
+		$this->villedep = $villedep;
 
-    /**
-     * Get iDVehicule
-     *
-     * @return integer
-     */
-    public function getIDVehicule()
-    {
-        return $this->id_vehicule;
-    }
+		return $this;
+	}
 
-    /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return Trajet
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
+	/**
+	* Get villedep
+	*
+	* @return string
+	*/
+	public function getVilledep()
+	{
+		return $this->villedep;
+	}
 
-        return $this;
-    }
+	/**
+	* Set iDVilledep
+	*
+	* @param string $iDVilledep
+	*
+	* @return Trajet
+	*/
+	public function setIDVilledep($iDVilledep)
+	{
+		$this->ID_villedep = $iDVilledep;
 
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
+		return $this;
+	}
 
-    /**
-     * Set villedep
-     *
-     * @param string $villedep
-     *
-     * @return Trajet
-     */
-    public function setVilledep($villedep)
-    {
-        $this->villedep = $villedep;
+	/**
+	* Get iDVilledep
+	*
+	* @return string
+	*/
+	public function getID_Villedep()
+	{
+		return $this->ID_villedep;
+	}
 
-        return $this;
-    }
+	/**
+	* Set villefin
+	*
+	* @param string $villefin
+	*
+	* @return Trajet
+	*/
+	public function setVillefin($villefin)
+	{
+		$this->villefin = $villefin;
 
-    /**
-     * Get villedep
-     *
-     * @return string
-     */
-    public function getVilledep()
-    {
-        return $this->villedep;
-    }
+		return $this;
+	}
 
-    /**
-     * Set iDVilledep
-     *
-     * @param string $iDVilledep
-     *
-     * @return Trajet
-     */
-    public function setIDVilledep($iDVilledep)
-    {
-        $this->ID_villedep = $iDVilledep;
+	/**
+	* Get villefin
+	*
+	* @return string
+	*/
+	public function getVillefin()
+	{
+		return $this->villefin;
+	}
 
-        return $this;
-    }
+	/**
+	* Set iDVillefin
+	*
+	* @param string $iDVillefin
+	*
+	* @return Trajet
+	*/
+	public function setIDVillefin($iDVillefin)
+	{
+		$this->ID_villefin = $iDVillefin;
 
-    /**
-     * Get iDVilledep
-     *
-     * @return string
-     */
-    public function getIDVilledep()
-    {
-        return $this->ID_villedep;
-    }
+		return $this;
+	}
 
-    /**
-     * Set villefin
-     *
-     * @param string $villefin
-     *
-     * @return Trajet
-     */
-    public function setVillefin($villefin)
-    {
-        $this->villefin = $villefin;
+	/**
+	* Get iDVillefin
+	*
+	* @return string
+	*/
+	public function getID_Villefin()
+	{
+		return $this->ID_villefin;
+	}
 
-        return $this;
-    }
+	/**
+	* Set date
+	*
+	* @param \DateTime $date
+	*
+	* @return Trajet
+	*/
+	public function setDate($date)
+	{
+		if(!$date instanceof StringType)
+		{
+			$this->date = $date;
+		}else{
+			$this->date = date_create($date);
+		}
 
-    /**
-     * Get villefin
-     *
-     * @return string
-     */
-    public function getVillefin()
-    {
-        return $this->villefin;
-    }
+		return $this;
+	}
 
-    /**
-     * Set iDVillefin
-     *
-     * @param string $iDVillefin
-     *
-     * @return Trajet
-     */
-    public function setIDVillefin($iDVillefin)
-    {
-        $this->ID_villefin = $iDVillefin;
+	/**
+	* Get date
+	*
+	* @return \DateTime
+	*/
+	public function getDate()
+	{
+		return $this->date;
+	}
 
-        return $this;
-    }
+	/**
+	* Set min
+	*
+	* @param integer $min
+	*
+	* @return Trajet
+	*/
+	public function setMin($min)
+	{
+		$this->min = $min;
 
-    /**
-     * Get iDVillefin
-     *
-     * @return string
-     */
-    public function getIDVillefin()
-    {
-        return $this->ID_villefin;
-    }
+		return $this;
+	}
+
+	/**
+	* Get min
+	*
+	* @return integer
+	*/
+	public function getMin()
+	{
+		return $this->min;
+	}
+
+	/**
+	* Set heure
+	*
+	* @param integer $heure
+	*
+	* @return Trajet
+	*/
+	public function setHeure($heure)
+	{
+		$this->heure = $heure;
+
+		return $this;
+	}
+
+	/**
+	* Get heure
+	*
+	* @return integer
+	*/
+	public function getHeure()
+	{
+		return $this->heure;
+	}
 }

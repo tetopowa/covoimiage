@@ -19,10 +19,10 @@ class PersonneController extends Controller
 		$p1->setPrenom("Test");
 		$p1->setDateNaissance('16-11-1994');
 		$p1->setSexe("Homme");
-		
+
 		$em = $this->getDoctrine()->getManager();
 		$em->persist($p1);
-		
+
 		$em->flush();
 		if ($request->isMethod('POST')) {
       $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');

@@ -9,9 +9,11 @@
 namespace AppBundle\Repository;
 
 use AppBundle\Entity\Trajet;
-
-class TrajetRepository
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
+class TrajetRepository extends EntityRepository
 {
+
     public function loadValidTrajet($source,$destination,$time){
         /*
          * Pour tout les trajet avec datefin < now
@@ -20,15 +22,23 @@ class TrajetRepository
          *
          *
          */
-        return $this->getEntityManager()
-            ->createQueryBuilder(t)
-            ->select('t')
-            ->from('AppBundle:Trajet','t')
-            ->where('t.idVilleDep = :source AND t.idVilleFin >= :dest AND t.heuredep >= :now')
+        return $this->createQueryBuilder('t')
+            ->where('t.ID_villedep = :source AND t.ID_villefin >= :dest AND t.date >= :now')
             ->setParameter('source', $source)
             ->setParameter('dest', $destination)
             ->setParameter('now',$time)
-            ->getQuery(),
+            ->getQuery()
+            ->getResult();
 
     }
+
+    // public function getTrajetFromId($id){
+    //
+    //   return $this->getEntityManager(t)
+    //               ->select('t')
+    //               ->from('AppBundle:Trajet','t')
+    //               ->where('t.id= :id')
+    //               ->setParameter('id',$id)
+    //               ->getQuery();
+    // }
 }

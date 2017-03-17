@@ -34,14 +34,15 @@ href="{{asset('css/index/bootstrap-datetimepicker.css')}}">
         <h2 class="section-heading">Rechercher un trajet !<br><small>Covoiturez en toute légèreté</small></h2>
       </div>
     </div>
-    <form>
+    {{form_start(form)}}
       <div class="form-group row">
         <div class="col-sm-3 offset-sm-2">
           <div class="input-group">
             <span class="input-group-addon">
               <span class="glyphicon glyphicon-screenshot"></span>
             </span>
-            <input type="text" class="form-control" placeholder="Départ" id="depart">
+            {{form_widget(form._villedep,{'attr':{'class':'form-control','placeholder':'Départ'}})}}
+            <!-- <input type="text" class="form-control" placeholder="Départ" id="depart"> -->
           </div>
         </div>
         <div class="col-sm-3">
@@ -49,7 +50,8 @@ href="{{asset('css/index/bootstrap-datetimepicker.css')}}">
             <span class="input-group-addon">
               <span class="glyphicon glyphicon-screenshot"></span>
             </span>
-            <input type="text" class="form-control" placeholder="Destination" id="destination">
+            {{form_widget(form._villefin,{'attr':{'class':'form-control','placeholder':'Destination'}})}}
+            <!-- <input type="text" class="form-control" placeholder="Destination" id="destination"> -->
           </div>
         </div>
         <div class='col-sm-3'>
@@ -58,7 +60,8 @@ href="{{asset('css/index/bootstrap-datetimepicker.css')}}">
               <span class="input-group-addon">
                 <span class="glyphicon glyphicon-calendar"></span>
               </span>
-              <input type='text' class="form-control" id='datetimepicker' />
+              {{ form_widget(form._date,{'attr':{'class':'form-control' }})}}
+              <!-- <input type='text' class="form-control" id='datetimepicker' /> -->
             </div>
           </div>
         </div>
@@ -66,7 +69,7 @@ href="{{asset('css/index/bootstrap-datetimepicker.css')}}">
           <button type="submit" class="btn btn-primary "name="button">Chercher un trajet</button>
         </div>
       </div>
-    </form>
+    {{form_end(form)}}
   </div>
   <!-- /.container -->
 </div>
@@ -82,26 +85,22 @@ href="{{asset('css/index/bootstrap-datetimepicker.css')}}">
           <h2 class="section-heading">Proposer un trajet !<br><small>Je suis tout seul et j'ai besoin de parler :(</small></h2>
           <br>
           <br>
-          <a href="/AddTrajet" class="btn btn-primary" name="seekTraj">Je propose mon trajet</a>
+          <a href="{{path('add_trajet')}}" class="btn btn-primary" name="seekTraj">Je propose mon trajet</a>
         </div>
     </div>
   </div>
 </div>
 {% endblock %}
-
 {% block javascripts %}
-<script type="text/javascript"
-src="{{ asset('js/index/moment.js') }}">
+<script type="text/javascript" src="{{ asset('js/index/moment.js') }}">
 </script>
-<script type="text/javascript"
-src="{{ asset('js/index/fr.js') }}">
+<script type="text/javascript" src="{{ asset('js/index/fr.js') }}">
 </script>
-<script type="text/javascript"
-src="{{ asset('js/index/bootstrap-datetimepicker.js') }}">
+<script type="text/javascript" src="{{ asset('js/index/bootstrap-datetimepicker.js') }}">
 </script>
 <script type="text/javascript">
 $(function () {
-  $('#datetimepicker').datetimepicker({
+  $('#seekTrajet_form__date').datetimepicker({
     minDate: new Date(),
     format: 'DD/MM/YYYY'
   });
@@ -111,10 +110,14 @@ $(function () {
 <script type="text/javascript">
   function initAutocomplete(){
     var origin_autocomplete,destination_autocomplete;
-    origin_autocomplete = new google.maps.places.Autocomplete(document.getElementById('depart'));
-    origin_autocomplete.addListener('place_changed', function(){});
-    destination_autocomplete = new google.maps.places.Autocomplete(document.getElementById('destination'));
-    destination_autocomplete.addListener('place_changed', function(){});
+    origin_autocomplete = new google.maps.places.Autocomplete(document.getElementById('seekTrajet_form__villedep'));
+    origin_autocomplete.addListener('place_changed', function(){
+      document.getElementById('seekTrajet_form_ID_villedep').value = origin_autocomplete.getPlace().place_id;
+    });
+    destination_autocomplete = new google.maps.places.Autocomplete(document.getElementById('seekTrajet_form__villefin'));
+    destination_autocomplete.addListener('place_changed', function(){
+      document.getElementById('seekTrajet_form_ID_villefin').value = destination_autocomplete.getPlace().place_id;
+    });
   }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3z3kJLlB-90weDg5R5M-ufw61cRMpvRE&signed_in=true&libraries=places&callback=initAutocomplete" charset="utf-8"></script>

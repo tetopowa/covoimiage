@@ -9,22 +9,22 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 class TrajetForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('_villedep',TextType::class)
-            ->add('_villefin',TextType::class)
-            ->add('_heuredep', DateType::class,array(
+            ->add('_villedep',TextType::class, array(
+              'required'=> true
+            ))
+            ->add('_villefin',TextType::class, array(
+              'required'=> true
+            ))
+            ->add('_date', DateType::class,array(
+                    'format' => 'dd-MM-yyyy',
+                    'html5'=>false,
                     'widget' => 'single_text',
-
-                    // do not render as type="date", to avoid HTML5 date pickers
-                    'html5' => false,
-
-                    // add a class that can be selected in JavaScript
-                    //'attr' => ['class' => 'js-datepicker'],
-
             ))
             ->add('_nbplaces',ChoiceType::class, array(
                 'choices'  => array(
@@ -37,6 +37,7 @@ class TrajetForm extends AbstractType
                 )))
             ->add('_heure',ChoiceType::class,array(
                 'choices' => array(
+                    '0' => 0,
                     '1' => 1,
                     '2' => 2,
                     '3' => 3,
@@ -60,7 +61,6 @@ class TrajetForm extends AbstractType
                     '21' => 21,
                     '22' => 22,
                     '23' => 23,
-                    '24' => 00,
                     )
                 ))
             ->add('_min',ChoiceType::class,array(
@@ -71,10 +71,9 @@ class TrajetForm extends AbstractType
                     '30' => 30,
                     '40' => 40,
                     '50' => 50,
-                    '0' => 00,
             )))
-
-
+            ->add('ID_villefin',HiddenType::class)
+            ->add('ID_villedep',HiddenType::class)
             ->getForm();
     }
 
