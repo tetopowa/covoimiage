@@ -13,8 +13,11 @@
       </div>
     </div>
   </div>
-  {% if userID == trajet.ID_conducteur %}
-  <button onclick="{{path('delete_trajet', {'id': trajet.ID_trajet})}}" type="button" class="btn btn-danger">Supprimer</button>
+  {% if userID == 3 %}
+  <form class="" action="{{path('delete_trajet', {'id':trajet.ID_trajet})}}" method="post">
+    <input type="submit" class="btn btn-danger" value="Supprimer">
+  </form>
+  <!-- <button type="button" class="btn btn-danger">Supprimer</button> -->
   <button type="button" class="btn btn-info" >Modifier</button>
   {% else %}
     <button type="button" class="btn btn-info" >Réserver</button>

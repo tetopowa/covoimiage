@@ -47,8 +47,8 @@ href="{{asset('css/index/bootstrap-datetimepicker.css')}}">
                 </div>
               </div>
             </div>
-            {{ form_widget(form.ID_villedep)}}
-            {{ form_widget(form.ID_villefin)}}
+            {{ form_widget(form.IDvilledep)}}
+            {{ form_widget(form.IDvillefin)}}
             <h2 class="section-heading">Date & Horaire</h2>
             <div class="form-group row">
               <div class="col-sm-5">
@@ -142,7 +142,7 @@ function initMap() {
     // If the place has a geometry, store its place ID and route if we have
     // the other place ID
     origin_place_id = place.place_id;
-    document.getElementById('app_bundle_trajet_form_ID_villedep').value = place.place_id;
+    document.getElementById('app_bundle_trajet_form_IDvilledep').value = place.place_id;
     route(origin_place_id, destination_place_id, waypoint_place_id ,travel_mode,
       directionsService, directionsDisplay);
     });
@@ -158,7 +158,7 @@ function initMap() {
       // If the place has a geometry, store its place ID and route if we have
       // the other place ID
       destination_place_id = place.place_id;
-      document.getElementById('app_bundle_trajet_form_ID_villefin').value = place.place_id;
+      document.getElementById('app_bundle_trajet_form_IDvillefin').value = place.place_id;
       route(origin_place_id, destination_place_id, waypoint_place_id ,travel_mode,
         directionsService, directionsDisplay);
       });

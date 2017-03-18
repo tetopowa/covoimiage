@@ -22,9 +22,9 @@ class IndexController extends Controller
           $datas = $form->getData();
 
           return $this->redirect($this->generateUrl('trajet_complete_research', array(
-            'dep'=>$datas['ID_villedep'],
-            'dest'=>$datas['ID_villefin'],
-            'date'=> $datas['_date']
+            'dep'=>$datas['IDvilledep'],
+            'dest'=>$datas['IDvillefin'],
+            'date'=> $datas['date']
           )));
 
       }

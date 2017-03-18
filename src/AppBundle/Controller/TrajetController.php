@@ -41,12 +41,10 @@ class TrajetController extends Controller
      * @Route("/trajet/id:{id}", name="trajet_show")
      */
     public function loadTrajetAction($id){
-      //$trajet = new Trajet();
       $em = $this->getDoctrine()->getRepository('AppBundle:Trajet');
       $trajet = $em->findOneBy(
        array('ID_trajet' => $id)
       );
-      // $trajet = $em->getTrajetFromId($id);
 
       return $this->render('trajet/trajet.html.twig', array(
         'trajet' => $trajet,
@@ -87,21 +85,49 @@ class TrajetController extends Controller
        * @Route("/delete_trajet/{id}", name="delete_trajet")
        */
       public function deleteTrajetAction($id){
+        $error=null;
+        $sucess=null;
         $userid = $this->getUser()->getID_user();
-        $em = $this->getDoctrine()->getRepository('AppBundle:Trajet');
-        $trajet = $em -> findBy(
+        $seek = $this->getDoctrine()->getRepository('AppBundle:Trajet');
+        $em = $this->getDoctrine()->getEntityManager();
+        $trajet = $seek -> findOneBy(
           array('ID_trajet'=> $id)
         );
-        if ($trajet['ID_conducteur'] == $userid) {
-          $error = 'Vous ne pouvez pas supprimer ce trajet';
+        if ($trajet->getID_Conducteur() == $userid) {
+          $em->remove($trajet);
+          $em->flush();
+          return $this->redirectToRoute('my_trajets',array(
+            'success' => 'Le trajet a bien été supprimé'
+          ));
+        }else {
+          return $this->redirectToRoute('my_trajets', array(
+            'error' => 'Erreur lors de la suppression'
+          ));
         }
-        else {
-          $success = 'Trajet supprimé avec succès';
-        }
+      }
 
-        $this->render('my_trajets', array(
-          'error' => $error,
-          'success' => $success
-        ));
+        /**
+         * @Route("/modify_trajet/{id}", name="modify_trajet")
+         */
+        public function modifyTrajetAction($id){
+          $error=null;
+          $sucess=null;
+          $userid = $this->getUser()->getID_user();
+          $seek = $this->getDoctrine()->getRepository('AppBundle:Trajet');
+          $em = $this->getDoctrine()->getEntityManager();
+          $trajet = $seek -> findOneBy(
+            array('ID_trajet'=> $id)
+          );
+          if ($trajet->getID_Conducteur() == $userid) {
+            
+            return $this->redirectToRoute('my_trajets',array(
+              'success' => 'Le trajet a bien été supprimé'
+            ));
+          }else {
+            return $this->redirectToRoute('my_trajets', array(
+              'error' => 'Erreur lors de la suppression'
+            ));
+          }
+
       }
 }

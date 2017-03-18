@@ -20,26 +20,18 @@ class seekTrajetForm extends AbstractType
   public function buildForm(FormBuilderInterface $builder, array $options){
 
     $builder
-      ->add('_villedep',TextType::class)
-      ->add('_villefin',TextType::class)
-      ->add('_date', DateType::class,array(
+      ->add('villedep',TextType::class)
+      ->add('villefin',TextType::class)
+      ->add('date', DateType::class,array(
               'widget' => 'single_text',
               'format' => 'dd-MM-yyyy',
               'input' => 'string'
       ))
-      ->add('ID_villedep',HiddenType::class)
-      ->add('ID_villefin',HiddenType::class)
+      ->add('IDvilledep',HiddenType::class)
+      ->add('IDvillefin',HiddenType::class)
       // ->add('_date',TextType::class)
       ->getForm();
   }
-
-  // public function configureOptions(OptionsResolver $resolver)
-  // {
-  //     $resolver->setDefaults([
-  //         'data_class' => Trajet::class,
-  //         'validation_groups' => ['Default', 'Trajet']
-  //     ]);
-  // }
 
   public function getBlockPrefix()
   {

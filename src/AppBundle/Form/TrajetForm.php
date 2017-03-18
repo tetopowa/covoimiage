@@ -72,8 +72,9 @@ class TrajetForm extends AbstractType
                     '40' => 40,
                     '50' => 50,
             )))
-            ->add('ID_villefin',HiddenType::class)
-            ->add('ID_villedep',HiddenType::class)
+            ->add('description',TextType::class)
+            ->add('IDvillefin',HiddenType::class)
+            ->add('IDvilledep',HiddenType::class)
             ->getForm();
     }
 
