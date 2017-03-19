@@ -100,7 +100,7 @@ href="{{asset('css/index/bootstrap-datetimepicker.css')}}">
 </script>
 <script type="text/javascript">
 $(function () {
-  $('#seekTrajet_form__date').datetimepicker({
+  $('#seekTrajet_form_date').datetimepicker({
     minDate: new Date(),
     format: 'DD/MM/YYYY'
   });
@@ -110,13 +110,13 @@ $(function () {
 <script type="text/javascript">
   function initAutocomplete(){
     var origin_autocomplete,destination_autocomplete;
-    origin_autocomplete = new google.maps.places.Autocomplete(document.getElementById('seekTrajet_form__villedep'));
+    origin_autocomplete = new google.maps.places.Autocomplete(document.getElementById('seekTrajet_form_villedep'));
     origin_autocomplete.addListener('place_changed', function(){
-      document.getElementById('seekTrajet_form_ID_villedep').value = origin_autocomplete.getPlace().place_id;
+      document.getElementById('seekTrajet_form_IDvilledep').value = origin_autocomplete.getPlace().place_id;
     });
-    destination_autocomplete = new google.maps.places.Autocomplete(document.getElementById('seekTrajet_form__villefin'));
+    destination_autocomplete = new google.maps.places.Autocomplete(document.getElementById('seekTrajet_form_villefin'));
     destination_autocomplete.addListener('place_changed', function(){
-      document.getElementById('seekTrajet_form_ID_villefin').value = destination_autocomplete.getPlace().place_id;
+      document.getElementById('seekTrajet_form_IDvillefin').value = destination_autocomplete.getPlace().place_id;
     });
   }
 </script>

@@ -10,6 +10,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 class TrajetForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -72,9 +74,10 @@ class TrajetForm extends AbstractType
                     '40' => 40,
                     '50' => 50,
             )))
-            ->add('description',TextType::class)
+            ->add('description',TextAreaType::class)
             ->add('IDvillefin',HiddenType::class)
             ->add('IDvilledep',HiddenType::class)
+            ->add('prix',NumberType::class)
             ->getForm();
     }
 

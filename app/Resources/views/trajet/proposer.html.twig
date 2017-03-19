@@ -23,59 +23,78 @@ href="{{asset('css/index/bootstrap-datetimepicker.css')}}">
       <div class="col-md-6">
         <div class="container-fluid">
           <!--<form>-->
-              {{ form_start(form,{'attr':{'accept-charset':'UTF-8'}}) }}
-            <h2 class="section-heading">Itinéraire</h2>
-            <div class="form-group row">
-              <div class="col-md-10">
-                <div class="input-group">
-                  <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-screenshot"></span>
-                  </span>
-                    {{ form_widget(form._villedep,{'attr':{'class': 'form-control','placeholder':'Départ'}})}}
-                  <!--<input type="text" class="form-control" placeholder="Départ" id="depart"> -->
-                </div>
+          {{ form_start(form,{'attr':{'accept-charset':'UTF-8'}}) }}
+          <h2 class="section-heading">Itinéraire</h2>
+          <div class="form-group row">
+            <div class="col-md-10">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-screenshot"></span>
+                </span>
+                {{ form_widget(form._villedep,{'attr':{'class': 'form-control','placeholder':'Départ'}})}}
+                <!--<input type="text" class="form-control" placeholder="Départ" id="depart"> -->
               </div>
             </div>
-            <div class="form-group row">
-              <div class="col-md-10">
-                <div class="input-group">
-                  <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-screenshot"></span>
-                  </span>
-                    {{ form_widget(form._villefin,{'attr':{'class': 'form-control','placeholder':'Destination'}})}}
-                  <!--<input type="text" class="form-control" placeholder="Destination" id="destination">-->
-                </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-10">
+              <div class="input-group">
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-screenshot"></span>
+                </span>
+                {{ form_widget(form._villefin,{'attr':{'class': 'form-control','placeholder':'Destination'}})}}
+                <!--<input type="text" class="form-control" placeholder="Destination" id="destination">-->
               </div>
             </div>
-            {{ form_widget(form.IDvilledep)}}
-            {{ form_widget(form.IDvillefin)}}
-            <h2 class="section-heading">Date & Horaire</h2>
-            <div class="form-group row">
-              <div class="col-sm-5">
-                <div class='input-group' >
-                  <span class="input-group-addon">
-                    <span class="glyphicon glyphicon-calendar"></span>
-                  </span>
-                  {{ form_widget(form._date,{'attr':{'class':'form-control' }})}}
-                </div>
-              </div>
-              <div class="col-sm-2">
-                {{ form_widget(form._heure,{'attr':{'class':'form-control' }}) }}
-              </div>
-              <div class="col-sm-1">
-                <h5> h </h5>
-              </div>
-              <div class="col-sm-2">
-                  {{ form_widget(form._min,{'attr':{'class':'form-control' }}) }}
-              </div>
-              <div class="col-sm-1">
-                <h5> min </h5>
+          </div>
+          {{ form_widget(form.IDvilledep)}}
+          {{ form_widget(form.IDvillefin)}}
+          <h2 class="section-heading">Date & Horaire</h2>
+          <div class="form-group row">
+            <div class="col-sm-5">
+              <div class='input-group' >
+                <span class="input-group-addon">
+                  <span class="glyphicon glyphicon-calendar"></span>
+                </span>
+                {{ form_widget(form._date,{'attr':{'class':'form-control' }})}}
               </div>
             </div>
-            {{form_widget(form._nbplaces)}}
-            <button type="submit" class="btn btn-primary">Continuer</button>
+            <div class="col-sm-2">
+              {{ form_widget(form._heure,{'attr':{'class':'form-control' }}) }}
+            </div>
+            <div class="col-sm-1">
+              <h5> h </h5>
+            </div>
+            <div class="col-sm-2">
+              {{ form_widget(form._min,{'attr':{'class':'form-control' }}) }}
+            </div>
+            <div class="col-sm-1">
+              <h5> min </h5>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-10">
+              <div class="form-group">
+                <label for="comment">Description:</label>
+                {{form_widget(form.description,{'attr':{'class':'form-control'}})}}
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-4">
+              <label>Nombre de places</label>
+              {{form_widget(form._nbplaces,{'attr':{'class':'form-control'}})}}
+            </div>
+            <div class="col-sm-6">
+              <div class="input-group">
+                <label for="">Prix</label>
+                {{form_widget(form.prix,{'attr':{'class':'form-control'}})}}
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Continuer</button>
 
-            {{ form_end(form)}}
+          {{ form_end(form)}}
 
           <!--</form>-->
         </div>

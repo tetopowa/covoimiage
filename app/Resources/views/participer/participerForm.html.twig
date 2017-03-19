@@ -1,0 +1,9 @@
+{% if error %}
+    <div class="alert alert-danger">
+        {{ error.messageKey|trans(error.messageData, 'security') }}
+    </div>
+{% endif %}
+{{ form_start(formReserv) }}
+{{}}
+<button type="submit" class="btn btn-primary "name="button">Réserver</button>
+{{ form_end(formReserv) }}

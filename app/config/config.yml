@@ -71,3 +71,13 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+#eko_feed Configuration
+eko_feed:
+    feeds:
+        article:
+            title:       'My trajet/trajet'
+            description: 'Tous les trajets'
+            link:        'http://covoimiage.fr'
+            encoding:    'utf-8'
+            author:      'Théo Lacroix & Léon ferrari & Mélanie Huet' # Only required for Atom feeds

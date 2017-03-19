@@ -23,7 +23,7 @@ class TrajetRepository extends EntityRepository
          *
          */
         return $this->createQueryBuilder('t')
-            ->where('t.ID_villedep = :source AND t.ID_villefin >= :dest AND t.date >= :now')
+            ->where('t.IDvilledep = :source AND t.IDvillefin >= :dest AND t.date >= :now')
             ->setParameter('source', $source)
             ->setParameter('dest', $destination)
             ->setParameter('now',$time)

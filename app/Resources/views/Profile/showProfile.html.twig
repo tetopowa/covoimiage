@@ -3,57 +3,60 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class='col-md-6 col-md-offset-5 panel'>
-                    <h1>Your profile !</h1>
-                </div>
-                {% if error %}
-                    <div class="alert alert-danger">
-                        {{ error.messageKey|trans(error.messageData, 'security') }}
-                    </div>
-                {% endif %}
-                {% if profile %}
+<div class="content-section-b">
+  <div class="container">
+      <div class="row">
+          <div class="col-xs-12">
+              <div class='col-md-6 col-md-offset-5 panel'>
+                  <h1>Your profile !</h1>
+              </div>
+              {% if error %}
+                  <div class="alert alert-danger">
+                      {{ error.messageKey|trans(error.messageData, 'security') }}
+                  </div>
+              {% endif %}
+              {% if profile %}
 
-                        <div class='col-md-6 col-md-offset-3 panel'>
-                            <table class="table table-user-information">
-                                <tbody>
-                                <tr>
-                                    <td>Nom:</td>
-                                    <td>{{ profile.nom }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Prenom:</td>
-                                    <td>{{ profile.prenom }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Date de Naissance:</td>
-                                    <td>{{ profile.dateNaissanceString}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Sexe:</td>
-                                    <td>{% if profile.sexe == 0 %}Feminin{% else %}Masculin{% endif %}</td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td>
-                                        <form method="post" action="{{path('modifyProfile')}}">
-                                            <button type="submit" name="Modify">Modify</button>
-                                        </form>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    {#FILLIN PROFILE FORM#}
+                      <div class='col-md-6 col-md-offset-3 panel'>
+                          <table class="table table-user-information">
+                              <tbody>
+                              <tr>
+                                  <td>Nom:</td>
+                                  <td>{{ profile.nom }}</td>
+                              </tr>
+                              <tr>
+                                  <td>Prenom:</td>
+                                  <td>{{ profile.prenom }}</td>
+                              </tr>
+                              <tr>
+                                  <td>Date de Naissance:</td>
+                                  <td>{{ profile.dateNaissanceString}}</td>
+                              </tr>
+                              <tr>
+                                  <td>Sexe:</td>
+                                  <td>{% if profile.sexe == 0 %}Feminin{% else %}Masculin{% endif %}</td>
+                              </tr>
+                              <tr>
+                                  <td></td>
+                                  <td>
+                                      <form method="post" action="{{path('modifyProfile')}}">
+                                          <button type="submit" name="Modify">Modify</button>
+                                      </form>
+                                  </td>
+                              </tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  {#FILLIN PROFILE FORM#}
 
-                {% else %}
-                    {#DISPLAY THE EXISTING PROFILE WITH AN MODIFY BUTTON#}
-                {%  endif %}
+              {% else %}
+                  {#DISPLAY THE EXISTING PROFILE WITH AN MODIFY BUTTON#}
+              {%  endif %}
 
-            </div>
-        </div>
+          </div>
+      </div>
 
-    </div>
+  </div>
+</div>
+
 {% endblock %}

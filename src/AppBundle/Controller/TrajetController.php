@@ -7,8 +7,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Trajet;
 use AppBundle\Form\TrajetForm;
 use AppBundle\Form\seekTrajetForm;
+use AppBundle\Entity\Participer;
+use AppBundle\Form\ParticiperForm;
 use AppBundle\Repository\TrajetRepository;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class TrajetController extends Controller
 {
@@ -28,7 +31,7 @@ class TrajetController extends Controller
           $em = $this->getDoctrine()->getEntityManager();
           $em->persist($trajet);
           $em->flush();
-          return $this->redirect($this->generateUrl('homepage'));
+          return $this->redirect($this->generateUrl('my_trajets'));
       }
 
       return $this->render('trajet/proposer.html.twig', array(
@@ -40,15 +43,33 @@ class TrajetController extends Controller
     /**
      * @Route("/trajet/id:{id}", name="trajet_show")
      */
-    public function loadTrajetAction($id){
-      $em = $this->getDoctrine()->getRepository('AppBundle:Trajet');
-      $trajet = $em->findOneBy(
+    public function loadTrajetAction(request $request, $id){
+
+
+      $userid = $this->getUser()->getID_user();
+      $trj = $this->getDoctrine()->getRepository('AppBundle:Trajet');
+      $trajet = $trj->findOneBy(
        array('ID_trajet' => $id)
       );
 
+      $participer = new Participer();
+      $participer->setIdPersonne($userid);
+      $participer->setIDTrajet($id);
+      $participer->setNbplaces(1);
+      $form = $this->createForm(ParticiperForm::class, $participer);
+      $form ->handleRequest($request);
+      if ($form->isValid()) {
+          $em = $this->getDoctrine()->getManager();
+          $em->persist($participer);
+          $em->flush();
+          return $this->redirect($this->generateUrl('my_reservations'));
+      }
+
       return $this->render('trajet/trajet.html.twig', array(
+        'formReserv'=>$form->createView(),
         'trajet' => $trajet,
-        'userID' => $this->getUser()->getID_user()
+        'userID' => $this->getUser()->getID_user(),
+        'error' =>null
       ));
     }
 
@@ -74,7 +95,7 @@ class TrajetController extends Controller
         $userid = $this->getUser()->getID_user();
         $em = $this->getDoctrine()->getRepository('AppBundle:Trajet');
         $trajets = $em->findBy(
-          array('ID_conducteur' => $userid)
+          array('IDconducteur' => $userid)
         );
         return $this->render('trajet/restrajet.html.twig', array(
           'trajets' => $trajets,
@@ -93,7 +114,7 @@ class TrajetController extends Controller
         $trajet = $seek -> findOneBy(
           array('ID_trajet'=> $id)
         );
-        if ($trajet->getID_Conducteur() == $userid) {
+        if ($trajet->getIDConducteur() == $userid) {
           $em->remove($trajet);
           $em->flush();
           return $this->redirectToRoute('my_trajets',array(
@@ -119,7 +140,7 @@ class TrajetController extends Controller
             array('ID_trajet'=> $id)
           );
           if ($trajet->getID_Conducteur() == $userid) {
-            
+
             return $this->redirectToRoute('my_trajets',array(
               'success' => 'Le trajet a bien été supprimé'
             ));
@@ -130,4 +151,19 @@ class TrajetController extends Controller
           }
 
       }
+
+      /**
+     * Generate the article feed
+     *
+     * @return Response XML Feed
+     */
+    public function feedAction()
+    {
+        $trajets = $this->getDoctrine()->getRepository('AppBundle:Trajet')->findAll();
+
+        $feed = $this->get('eko_feed.feed.manager')->get('trajet');
+        $feed->addFromArray($trajets);
+
+        return new Response($feed->render('rss')); // or 'atom'
+    }
 }

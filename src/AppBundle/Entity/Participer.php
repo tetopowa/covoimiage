@@ -101,27 +101,4 @@ use Doctrine\ORM\Mapping as ORM;
         return $this->ID_personne;
     }
 
-    /**
-     * Set description
-     *
-     * @param string $description
-     *
-     * @return Participer
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * Get description
-     *
-     * @return string
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
  }

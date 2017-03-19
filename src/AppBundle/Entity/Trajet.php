@@ -2,13 +2,14 @@
 namespace AppBundle\Entity;
 use Symfony\Component\Validator\Constraints as CSTRT;
 use Doctrine\ORM\Mapping as ORM;
+use Eko\FeedBundle\Item\Writer\ItemInterface;
 
 /**
 * @ORM\Entity
 * @ORM\Table(name="Trajet")
 * @ORM\Entity(repositoryClass="AppBundle\Repository\TrajetRepository")
 */
-class Trajet
+class Trajet implements ItemInterface
 {
 	/**
 	* Clé primaire de Trajet
@@ -80,6 +81,13 @@ class Trajet
 	*
 	*/
 	private $heure;
+
+	/**
+	* @CSTRT\NotBlank(groups={"Trajet"})
+	* @ORM\Column(name="prix", type="integer")
+	*
+	*/
+	private $prix;
 
 
     /**
@@ -330,5 +338,29 @@ class Trajet
     public function getHeure()
     {
         return $this->heure;
+    }
+
+    /**
+     * Set prix
+     *
+     * @param integer $prix
+     *
+     * @return Trajet
+     */
+    public function setPrix($prix)
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    /**
+     * Get prix
+     *
+     * @return integer
+     */
+    public function getPrix()
+    {
+        return $this->prix;
     }
 }

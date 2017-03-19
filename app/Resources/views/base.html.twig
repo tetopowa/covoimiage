@@ -36,9 +36,10 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
           {% if is_granted('ROLE_USER') %}
+            <li><a href="{{path('my_trajets')}}">Mes annonces</a></li>
+            <li><a href="{{path('my_reservations')}}">Mes réservations</a></li>
             <li><a href="{{ path('logout') }}">Se déconnecter</a></li>
             <li><a href="{{ path('profile') }}">Profil</a></li>
-            <li><a href="{{path('my_trajets')}}">Mes annonces</a></li>
           {% else %}
           <li>
             <a href="{{path('user_registration')}}">Inscription</a>

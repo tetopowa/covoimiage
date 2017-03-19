@@ -81,4 +81,261 @@ class Trajet
 	*/
 	private $heure;
 
+	/**
+	* @CSTRT\NotBlank(groups={"Trajet"})
+	* @ORM\Column(name="prix", type="integer")
+	*
+	*/
+	private $prix;
+
+
+    /**
+     * Get iDTrajet
+     *
+     * @return integer
+     */
+    public function getIDTrajet()
+    {
+        return $this->ID_trajet;
+    }
+
+    /**
+     * Set nbplaces
+     *
+     * @param integer $nbplaces
+     *
+     * @return Trajet
+     */
+    public function setNbplaces($nbplaces)
+    {
+        $this->nbplaces = $nbplaces;
+
+        return $this;
+    }
+
+    /**
+     * Get nbplaces
+     *
+     * @return integer
+     */
+    public function getNbplaces()
+    {
+        return $this->nbplaces;
+    }
+
+    /**
+     * Set iDconducteur
+     *
+     * @param integer $iDconducteur
+     *
+     * @return Trajet
+     */
+    public function setIDconducteur($iDconducteur)
+    {
+        $this->IDconducteur = $iDconducteur;
+
+        return $this;
+    }
+
+    /**
+     * Get iDconducteur
+     *
+     * @return integer
+     */
+    public function getIDconducteur()
+    {
+        return $this->IDconducteur;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Trajet
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set villedep
+     *
+     * @param string $villedep
+     *
+     * @return Trajet
+     */
+    public function setVilledep($villedep)
+    {
+        $this->villedep = $villedep;
+
+        return $this;
+    }
+
+    /**
+     * Get villedep
+     *
+     * @return string
+     */
+    public function getVilledep()
+    {
+        return $this->villedep;
+    }
+
+    /**
+     * Set iDvilledep
+     *
+     * @param string $iDvilledep
+     *
+     * @return Trajet
+     */
+    public function setIDvilledep($iDvilledep)
+    {
+        $this->IDvilledep = $iDvilledep;
+
+        return $this;
+    }
+
+    /**
+     * Get iDvilledep
+     *
+     * @return string
+     */
+    public function getIDvilledep()
+    {
+        return $this->IDvilledep;
+    }
+
+    /**
+     * Set villefin
+     *
+     * @param string $villefin
+     *
+     * @return Trajet
+     */
+    public function setVillefin($villefin)
+    {
+        $this->villefin = $villefin;
+
+        return $this;
+    }
+
+    /**
+     * Get villefin
+     *
+     * @return string
+     */
+    public function getVillefin()
+    {
+        return $this->villefin;
+    }
+
+    /**
+     * Set iDvillefin
+     *
+     * @param string $iDvillefin
+     *
+     * @return Trajet
+     */
+    public function setIDvillefin($iDvillefin)
+    {
+        $this->IDvillefin = $iDvillefin;
+
+        return $this;
+    }
+
+    /**
+     * Get iDvillefin
+     *
+     * @return string
+     */
+    public function getIDvillefin()
+    {
+        return $this->IDvillefin;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     *
+     * @return Trajet
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set min
+     *
+     * @param integer $min
+     *
+     * @return Trajet
+     */
+    public function setMin($min)
+    {
+        $this->min = $min;
+
+        return $this;
+    }
+
+    /**
+     * Get min
+     *
+     * @return integer
+     */
+    public function getMin()
+    {
+        return $this->min;
+    }
+
+    /**
+     * Set heure
+     *
+     * @param integer $heure
+     *
+     * @return Trajet
+     */
+    public function setHeure($heure)
+    {
+        $this->heure = $heure;
+
+        return $this;
+    }
+
+    /**
+     * Get heure
+     *
+     * @return integer
+     */
+    public function getHeure()
+    {
+        return $this->heure;
+    }
 }
