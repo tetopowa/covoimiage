@@ -2,7 +2,7 @@
 
 {% form_theme form 'bootstrap_3_layout.html.twig' %}
 {% extends 'base.html.twig' %}
-{% block title %}Inscription | CovoiMiage{% endblock %}
+{% block title %}{% trans %}Inscription{% endtrans %} | CovoiMiage{% endblock %}
 {% block nav %}
 <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
   <div class="container topnav">
@@ -23,9 +23,9 @@
 <div class="content-section-b">
   <div class="container">
     <div class="row">
-      <h2 class="section-heading">Déjà inscrit ?<br></h2>
+      <h2 class="section-heading">{% trans %}transDéjà inscrit {% endtrans %}?<br></h2>
       <div class="dropdown">
-        <button class="btn btn-primary" type="button" data-toggle="dropdown">Se connecter
+        <button class="btn btn-primary" type="button" data-toggle="dropdown">{% trans %}Se connecter{% endtrans %}
           <span class="caret"></span></button>
           <ul id="login-dp" class="dropdown-menu">
             <li>
@@ -33,7 +33,7 @@
                 <div class="col-md-12">
                   <{{ render(controller('AppBundle:Security:login')) }}
                   <div class="bottom text-center">
-                    Pas encore inscrit?<a href="/register"><br><b>S'inscrire !</b></a>
+                    {% trans %}Pas encore inscrit{% endtrans %}?<a href="/register"><br><b>{% trans %}S'inscrire{% endtrans %} !</b></a>
                   </div>
                 </div>
               </li>
@@ -52,7 +52,7 @@
           <img src="{{asset('img/lvp_inscrip.jpg')}}" alt="">
         </div>
         <div class="col-lg-5 col-lg-offset-1">
-          <h2 class="section-heading">Formulaire d'inscription:<br></h2>
+          <h2 class="section-heading">{% trans %}Formulaire d'inscription{% endtrans %}:<br></h2>
 
           {{ form(form) }}
         </div>

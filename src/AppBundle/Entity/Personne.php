@@ -53,16 +53,7 @@ class Personne
 	 * @ORM\Column(name="sexe", type="boolean")
 	 */
 	private $sexe;
-	/**
-	 * Une personne peut avoir plusieurs "modele de "voitures"
-	 * Une voiture peut avoir plusieurs "proprietaire"
-	 * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Vehicule", cascade={"persist"})
-	 * @ORM\JoinTable(name="Posseder",
-     *      joinColumns={@ORM\JoinColumn(name="Proprietaire", referencedColumnName="ID_personne")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="Voiture", referencedColumnName="ID_vehicule")})
-	 */
-	 private $voitures;
-	 
+
 	 /**
      * Constructor
      */
@@ -182,39 +173,6 @@ class Personne
     public function getSexe()
     {
         return $this->sexe;
-    }
-    /**
-     * Add voiture
-     *
-     * @param \AppBundle\Entity\Vehicule $voiture
-     *
-     * @return Personne
-     */
-    public function addVoiture(\AppBundle\Entity\Vehicule $voiture)
-    {
-        $this->voitures[] = $voiture;
-
-        return $this;
-    }
-
-    /**
-     * Remove voiture
-     *
-     * @param \AppBundle\Entity\Vehicule $voiture
-     */
-    public function removeVoiture(\AppBundle\Entity\Vehicule $voiture)
-    {
-        $this->voitures->removeElement($voiture);
-    }
-
-    /**
-     * Get voitures
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getVoitures()
-    {
-        return $this->voitures;
     }
 
     /**

@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}carte{% endblock %}
+{% block title %}Covoimiage| {% trans %}Je propose{% endtrans %} {% endblock %}
 {% block stylesheets %}
 <meta name="viewport" content="initial-scale=1.0">
 <style>
@@ -24,7 +24,7 @@ href="{{asset('css/index/bootstrap-datetimepicker.css')}}">
         <div class="container-fluid">
           <!--<form>-->
           {{ form_start(form,{'attr':{'accept-charset':'UTF-8'}}) }}
-          <h2 class="section-heading">Itinéraire</h2>
+          <h2 class="section-heading">{% trans %}Itinéraire{% endtrans %}</h2>
           <div class="form-group row">
             <div class="col-md-10">
               <div class="input-group">
@@ -49,7 +49,7 @@ href="{{asset('css/index/bootstrap-datetimepicker.css')}}">
           </div>
           {{ form_widget(form.IDvilledep)}}
           {{ form_widget(form.IDvillefin)}}
-          <h2 class="section-heading">Date & Horaire</h2>
+          <h2 class="section-heading">{% trans %}Date & Horaire{% endtrans %}</h2>
           <div class="form-group row">
             <div class="col-sm-5">
               <div class='input-group' >
@@ -75,24 +75,24 @@ href="{{asset('css/index/bootstrap-datetimepicker.css')}}">
           <div class="form-group row">
             <div class="col-md-10">
               <div class="form-group">
-                <label for="comment">Description:</label>
+                <label for="comment">{% trans %}Description{% endtrans %}:</label>
                 {{form_widget(form.description,{'attr':{'class':'form-control'}})}}
               </div>
             </div>
           </div>
           <div class="form-group row">
             <div class="col-sm-4">
-              <label>Nombre de places</label>
+              <label>{% trans %}Nombre de places{% endtrans %}</label>
               {{form_widget(form._nbplaces,{'attr':{'class':'form-control'}})}}
             </div>
             <div class="col-sm-6">
               <div class="input-group">
-                <label for="">Prix</label>
+                <label for="">{% trans %}Prix{% endtrans %}</label>
                 {{form_widget(form.prix,{'attr':{'class':'form-control'}})}}
               </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">Continuer</button>
+          <button type="submit" class="btn btn-primary">{% trans %}Continuer{% endtrans %}</button>
 
           {{ form_end(form)}}
 
@@ -100,7 +100,7 @@ href="{{asset('css/index/bootstrap-datetimepicker.css')}}">
         </div>
       </div>
       <div class="col-md-6">
-        <h2 class="section-heading">Trajet</h2>
+        <h2 class="section-heading">{% trans %}Trajet{% endtrans %}</h2>
         <div id="map" style="width:400px;height:400px;"></div>
       </div>
     </div>

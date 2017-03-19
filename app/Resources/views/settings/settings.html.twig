@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}CovoiMiage | Contact{% endblock %}
+{% block title %}CovoiMiage | Paramètres{% endblock %}
 
 {% block nav %}
 {{parent()}}
@@ -10,9 +10,9 @@
   <div class="content-section-a">
     <div class="container">
       <div class="row">
-        <div class="col-lg-5 col-sm-6">
-          <h2 class="section-heading">Nous contacter !<br><small>Théo Lacroix & Léon Ferrari</small></h2>
-        </div>
+        {{form_start(form)}}
+        <button type="submit" class="btn btn-info" >Sauvegarder</button>
+        {{form_end(form)}}
       </div>
     </div>
   </div>

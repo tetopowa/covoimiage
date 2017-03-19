@@ -4,35 +4,27 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12" style="text-align:center">
-        <h4>Départ : <small>{{trajet.villedep}}</small></h4>
-        <h4>Arrivée : <small>{{trajet.villefin}}</small></h4>
-        <h4>Date de départ :<small>{{trajet.date|date('D-d-M-Y')}} à {{trajet.heure}}h{{trajet.min}}</small></h4>
+        <h4>{% trans %}Départ{% endtrans %} : <small>{{trajet.villedep}}</small></h4>
+        <h4>{% trans %}Arrivée{% endtrans %} : <small>{{trajet.villefin}}</small></h4>
+        <h4>{% trans %}Date de départ{% endtrans %} :<small>{{trajet.date|date('D-d-M-Y')}} à {{trajet.heure}}h{{trajet.min}}</small></h4>
         <h4>Prix: <small><span class="badge">{{trajet.prix}}€</small></h4>
-          <h4>Description :<br><small>{{trajet.description}}</small></h4>
+          <h4>{% trans %}Description{% endtrans %}:<br><small>{{trajet.description}}</small></h4>
           {% if userID == trajet.IDconducteur %}
           <form class="" action="{{path('delete_trajet', {'id':trajet.IDtrajet})}}" method="post">
             <input type="submit" class="btn btn-danger" value="Supprimer">
           </form>
-          <button type="button" class="btn btn-info" >Modifier</button>
-          
-
-          <!-- <button type="button" class="btn btn-danger">Supprimer</button> -->
-
           {% else %}
           {{form_start(formReserv)}}
           <div class="form-group row">
             <div class="col-sm-4">
-              <label>Nombre de places</label>
+              <label>{% trans %}Nombre de places{% endtrans %}</label>
               {{form_widget(formReserv._nbplaces,{'attr':{'class':'form-control'}})}}
             </div>
           </div>
-          <button type="submit" class="btn btn-info" >Réserver</button>
+          <button type="submit" class="btn btn-info" >{% trans %}Réserver{% endtrans %}</button>
           {{form_end(formReserv)}}
           {% endif %}
         </div>
-        <!-- <div class="col-md-4">
-        <div id="{{trajet.IDtrajet}}map" style="width:400px;height:400px;"></div>
-      </div> -->
     </div>
   </div>
 

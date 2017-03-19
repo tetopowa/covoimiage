@@ -363,4 +363,17 @@ class Trajet implements ItemInterface
     {
         return $this->prix;
     }
+
+		public function getFeedItemTitle() {
+			return $this->ID_trajet;
+		}
+		public function getFeedItemDescription() {
+			return $this->description;
+		}
+		public function getFeedItemPubDate() {
+			return $this->date;
+		}
+		public function getFeedItemLink() {
+			return 'http://trajet/trajet/'.$this->id;
+		}
 }

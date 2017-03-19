@@ -1,62 +1,57 @@
 {# app/Resources/views/security/login.html.twig #}
 {# ... you will probably extend your base template, like base.html.twig #}
 {% extends 'base.html.twig' %}
-
 {% block body %}
+
 <div class="content-section-b">
   <div class="container">
-      <div class="row">
-          <div class="col-xs-12">
-              <div class='col-md-6 col-md-offset-5 panel'>
-                  <h1>Your profile !</h1>
-              </div>
-              {% if error %}
-                  <div class="alert alert-danger">
-                      {{ error.messageKey|trans(error.messageData, 'security') }}
-                  </div>
-              {% endif %}
-              {% if profile %}
-
-                      <div class='col-md-6 col-md-offset-3 panel'>
-                          <table class="table table-user-information">
-                              <tbody>
-                              <tr>
-                                  <td>Nom:</td>
-                                  <td>{{ profile.nom }}</td>
-                              </tr>
-                              <tr>
-                                  <td>Prenom:</td>
-                                  <td>{{ profile.prenom }}</td>
-                              </tr>
-                              <tr>
-                                  <td>Date de Naissance:</td>
-                                  <td>{{ profile.dateNaissanceString}}</td>
-                              </tr>
-                              <tr>
-                                  <td>Sexe:</td>
-                                  <td>{% if profile.sexe == 0 %}Feminin{% else %}Masculin{% endif %}</td>
-                              </tr>
-                              <tr>
-                                  <td></td>
-                                  <td>
-                                      <form method="post" action="{{path('modifyProfile')}}">
-                                          <button type="submit" name="Modify">Modify</button>
-                                      </form>
-                                  </td>
-                              </tr>
-                              </tbody>
-                          </table>
-                      </div>
-                  {#FILLIN PROFILE FORM#}
-
-              {% else %}
-                  {#DISPLAY THE EXISTING PROFILE WITH AN MODIFY BUTTON#}
-              {%  endif %}
-
-          </div>
+    <div class="row">
+      <div class="col-lg-5 col-sm-6">
+        <h2 class="section-heading">{% trans %}Profil{% endtrans %}</h2>
       </div>
+    </div>
+    {% if error %}
+    <div class="alert alert-danger">
+      {{ error.messageKey|trans(error.messageData, 'security') }}
+    </div>
+    {% endif %}
+  </div>
+  <div class="row">
+    <div class='col-md-6 col-md-offset-3 panel'>
+      {% if profile %}
+      <table class="table table-user-information">
+        <tbody>
+          <tr>
+            <td>{% trans %}Nom{% endtrans %}:</td>
+            <td>{{ profile.nom }}</td>
+          </tr>
+          <tr>
+            <td>{% trans %}Prenom{% endtrans %}:</td>
+            <td>{{ profile.prenom }}</td>
+          </tr>
+          <tr>
+            <td>{% trans %}Date de Naissance{% endtrans %}:</td>
+            <td>{{ profile.dateNaissanceString}}</td>
+          </tr>
+          <tr>
+            <td>{% trans %}Sexe{% endtrans %}:</td>
+            <td>{% if profile.sexe == 0 %}{% trans %}Feminin{% endtrans %}{% else %}{% trans %}Masculin{% endtrans %}{% endif %}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td>
+              <form method="post" action="{{path('modifyProfile')}}">
+                <button type="submit" name="Modify">{% trans %}Modifier{% endtrans %}</button>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      {% endif %}
 
+    </div>
   </div>
 </div>
+
 
 {% endblock %}

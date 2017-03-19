@@ -23,21 +23,28 @@ class TrajetController extends Controller
   public function AddTrajetAction(request $request)
   {
       $trajet = new Trajet();
-      $userid = $this->getUser()->getID_user();
-      $trajet->setIDConducteur($userid);
-      $form = $this->createForm(TrajetForm::class, $trajet);
-      $form ->handleRequest($request);
-      if ($form->isValid()) {
-          $em = $this->getDoctrine()->getEntityManager();
-          $em->persist($trajet);
-          $em->flush();
-          return $this->redirect($this->generateUrl('my_trajets'));
+      if ($this->getUser()) {
+        $userid = $this->getUser()->getID_user();
+        $trajet->setIDConducteur($userid);
+        $form = $this->createForm(TrajetForm::class, $trajet);
+        $form ->handleRequest($request);
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->persist($trajet);
+            $em->flush();
+            return $this->redirect($this->generateUrl('my_trajets'));
+        }
+
+        return $this->render('trajet/proposer.html.twig', array(
+            'form' => $form->createView(),
+            'error' => null,
+        ));
+      }else {
+        return $this->redirectToRoute('homepage');
       }
 
-      return $this->render('trajet/proposer.html.twig', array(
-          'form' => $form->createView(),
-          'error' => null,
-      ));
+
+
   }
 
     /**

@@ -8,15 +8,15 @@
                 {% endif %}
                 {{ form_start(formLogin,{'attr':{'class':'form','role':'form','accept-charset':'UTF-8', 'id':'login-nav','action':path('login')}}) }}
                 <div class="form-group">
-                    <label class="sr-only" for="exampleInputEmail2">Nom d'utilisateur</label>
+                    <label class="sr-only" for="exampleInputEmail2">{% trans %}Nom d'utilisateur{% endtrans %}</label>
                     {{ form_widget(formLogin._username,{'attr':{'class': 'form-control','id':'username','placeholder':'Utilisateur'}})}}
                 </div>
                 <div class="form-group">
-                    <label class="sr-only" for="exampleInputPassword2">Mot de passe</label>
+                    <label class="sr-only" for="exampleInputPassword2">{% trans %}Mot de passe{% endtrans %}</label>
                     {{ form_widget(formLogin._password,{'attr':{'class': 'form-control', 'id':'password','placeholder':'Mot de passe'}})}}
                     <br>
                     <div class="form-group">
-                    <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
+                    <button type="submit" class="btn btn-primary btn-block">{% trans %}Se connecter{% endtrans %}</button>
                     </div>
                 </div>
                 {{ form_end(formLogin) }}

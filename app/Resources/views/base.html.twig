@@ -12,7 +12,10 @@
   <!-- Custom Fonts -->
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+  {% if true %}{% endif %}
   <link rel="stylesheet" href="{{asset('css/index/landing-page.css')}}">
+
   {% block stylesheets %}{% endblock %}
   <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
@@ -36,67 +39,68 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav navbar-right">
           {% if is_granted('ROLE_USER') %}
-            <li><a href="{{path('my_trajets')}}">Mes annonces</a></li>
-            <li><a href="{{path('my_reservations')}}">Mes réservations</a></li>
-            <li><a href="{{ path('logout') }}">Se déconnecter</a></li>
-            <li><a href="{{ path('profile') }}">Profil</a></li>
+          <li><a href="{{path('my_trajets')}}">{% trans %}Mes annonces{% endtrans %}</a></li>
+          <li><a href="{{path('my_reservations')}}">{% trans %}Mes réservations{% endtrans %}</a></li>
+          <li><a href="{{ path('logout') }}">{% trans %}Se déconnecter{% endtrans %}</a></li>
+          <li><a href="{{ path('profile') }}">{% trans %}Profil{% endtrans %}</a></li>
           {% else %}
           <li>
-            <a href="{{path('user_registration')}}">Inscription</a>
+            <a href="{{path('user_registration')}}">{% trans %}Inscription{% endtrans %}</a>
           </li>
           <li class="dropdown" >
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Connexion</b> <span class="caret"></span></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>{% trans %}Connexion{% endtrans %}</b> <span class="caret"></span></a>
             <ul id="login-dp" class="dropdown-menu">
               <li>
                 <div class="row">
                   <div class="col-md-12">
-                      {{ render(controller('AppBundle:Security:login')) }}
-                    </div>
-                    <div class="bottom text-center">
-                      Pas encore inscrit?<a href="/register"><br><b>S'inscrire !</b></a>
-                    </div>
+                    {{ render(controller('AppBundle:Security:login')) }}
                   </div>
-                </li>
-              </ul>
-            </li>
+                  <div class="bottom text-center">
+                    {% trans %}Pas encore inscrit?{% endtrans %}<a href="/register"><br><b>{% trans %}S'inscrire ! {% endtrans %}</b></a>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </li>
           {% endif %}
 
+          <li>
+            <a href="/settings">{% trans %}Paramètres{% endtrans %}</a>
+          </li>
+
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+  </nav>
+  {% endblock %}
+
+  {% block body %}{% endblock %}
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <ul class="list-inline">
+            <li>
+              <a href="/">{% trans %}Page d'accueil{% endtrans %}</a>
+            </li>
+            <li class="footer-menu-divider">&sdot;</li>
             <li>
               <a href="/contact">Contact</a>
             </li>
           </ul>
-        </div>
-        <!-- /.navbar-collapse -->
-      </div>
-      <!-- /.container -->
-    </nav>
-    {% endblock %}
-
-    {% block body %}{% endblock %}
-
-    <!-- Footer -->
-    <footer>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12">
-            <ul class="list-inline">
-              <li>
-                <a href="/">Page d'accueil</a>
-              </li>
-              <li class="footer-menu-divider">&sdot;</li>
-              <li>
-                <a href="/contact">Contact</a>
-              </li>
-            </ul>
-            <p class="copyright text-muted small">Copyright &copy; CovoiMiage Théo Lacroix & Leon Ferrari. All Rights Reserved</p>
-          </div>
+          <p class="copyright text-muted small">Copyright &copy; CovoiMiage Théo Lacroix & Leon Ferrari. All Rights Reserved</p>
         </div>
       </div>
-    </footer>
-    <!-- jQuery -->
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    {% block javascripts %}{% endblock %}
-  </body>
-  </html>
+    </div>
+  </footer>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  {% block javascripts %}{% endblock %}
+</body>
+</html>
