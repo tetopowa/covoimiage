@@ -5,7 +5,7 @@ imports:
 # Put parameters here that don't need to change on each machine where the app is deployed
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: fr
+    locale: en
 
 
 framework:
@@ -78,6 +78,6 @@ eko_feed:
         article:
             title:       'My trajet/trajet'
             description: 'Tous les trajets'
-            link:        'http://covoimiage.fr'
+            link:        'http://localhost:8000/rss_trajet'
             encoding:    'utf-8'
             author:      'Théo Lacroix & Léon ferrari & Mélanie Huet' # Only required for Atom feeds
