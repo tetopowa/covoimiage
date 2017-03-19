@@ -13,8 +13,17 @@
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
 
-  {% if true %}{% endif %}
-  <link rel="stylesheet" href="{{asset('css/index/landing-page.css')}}">
+  {% if not is_granted('ROLE_USER') %}
+    <link rel="stylesheet" href="{{asset('css/index/landing-page.css')}}">
+    {% else %}
+        {% if not app.user.isActive %}
+          <link rel="stylesheet" href="{{asset('css/index/landing-page2.css')}}">
+          {% else %}
+              <link rel="stylesheet" href="{{asset('css/index/landing-page.css')}}">
+        {% endif %}
+  {% endif %}
+
+
 
   {% block stylesheets %}{% endblock %}
   <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />

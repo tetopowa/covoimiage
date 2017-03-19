@@ -14,26 +14,43 @@ class SettingsController extends Controller{
   * @Route("/settings", name="settings")
   */
 
-  public function setSettingsAction(request $request){
-    $form = $this->createFormBuilder()
-    ->add('language', CheckboxType::class, array(
-      'label'    => 'Anglais (si non coché : français): ',
-      'required' => false
-    ))
-    ->add('darktheme', CheckboxType::class, array(
-      'label'=> 'Thème dark: ',
-      'required' => false
-    ))
-    ->getForm();
-    $form->handleRequest($request);
-    if ($form->isSubmitted() && $form->isValid()) {
-      $data = $form->getData();
+  public function settingsAction(request $request){
 
-      return $this->render('settings/settings.html.twig');
-    }
-    return $this->render('settings/settings.html.twig',array(
-      'form' => $form->createView()
-    ));
+    return $this->render('settings/settings.html.twig');
+  }
+
+  /**
+  * @Route("/set_dark", name="set_dark")
+  */
+
+  public function setDarkAction(request $request){
+    $user= $this->getDoctrine()
+        ->getRepository('AppBundle:User')
+        ->findOneBy(array(
+          'ID_user' => $this->getUser()->getID_user()
+        ));
+    $user->setIsActive(false);
+    $em = $this->getDoctrine()->getManager();
+    $em->persist($user);
+    $em->flush();
+    return $this->redirectToRoute('homepage');
+  }
+
+  /**
+  * @Route("/set_normal", name="set_normal")
+  */
+
+  public function setNormalAction(request $request){
+    $user= $this->getDoctrine()
+        ->getRepository('AppBundle:User')
+        ->findOneBy(array(
+          'ID_user' => $this->getUser()->getID_user()
+        ));
+    $user->setIsActive(true);
+    $em = $this->getDoctrine()->getManager();
+    $em->persist($user);
+    $em->flush();
+    return $this->redirectToRoute('homepage');
   }
 
 }
