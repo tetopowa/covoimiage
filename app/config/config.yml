@@ -75,7 +75,7 @@ swiftmailer:
 #eko_feed Configuration
 eko_feed:
     feeds:
-        article:
+        trajet:
             title:       'My trajet/trajet'
             description: 'Tous les trajets'
             link:        'http://localhost:8000/rss_trajet'

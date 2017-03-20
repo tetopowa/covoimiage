@@ -9,27 +9,29 @@
         <h4>{% trans %}Date de départ{% endtrans %} :<small>{{trajet.date|date('D-d-M-Y')}} à {{trajet.heure}}h{{trajet.min}}</small></h4>
         <h4>Prix: <small><span class="badge">{{trajet.prix}}€</small></h4>
           <h4>{% trans %}Description{% endtrans %}:<br><small>{{trajet.description}}</small></h4>
-          {% if userID == trajet.IDconducteur %}
-          <form class="" action="{{path('delete_trajet', {'id':trajet.IDtrajet})}}" method="post">
-            <input type="submit" class="btn btn-danger" value="Supprimer">
-          </form>
-          {% else %}
-          {{form_start(formReserv)}}
-          <div class="form-group row">
-            <div class="col-sm-4">
-              <label>{% trans %}Nombre de places{% endtrans %}</label>
-              {{form_widget(formReserv._nbplaces,{'attr':{'class':'form-control'}})}}
-            </div>
-          </div>
-          <button type="submit" class="btn btn-info" >{% trans %}Réserver{% endtrans %}</button>
-          {{form_end(formReserv)}}
+          {% if is_granted('ROLE_USER') %}
+            {% if app.user.ID_user == trajet.IDconducteur %}
+            <form class="" action="{{path('delete_trajet', {'id':trajet.IDtrajet})}}" method="post">
+              <input type="submit" class="btn btn-danger" value="Supprimer">
+            </form>
+            {% else %}
+              {% if trajet.nbplaces == 0 %}
+                <h4>Ce trajet est complet !</h4>
+              {% else %}
+              {{form_start(formReserv, {'action' : path('reserv', {'idtrajet': trajet.IDtrajet, 'idpersonne' : app.user.ID_user , 'nbplaces' : 1})})}}
+              {{form_end(formReserv)}}
+              {% endif %}
+            {% endif %}
           {% endif %}
+
+
         </div>
     </div>
   </div>
 
 </div>
 <script type="text/javascript">
+
 function initMap(){
   var origin_place_id = '{{trajet.IDvilledep}}';
   var destination_place_id = '{{trajet.IDvillefin}}';

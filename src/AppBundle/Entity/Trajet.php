@@ -374,6 +374,6 @@ class Trajet implements ItemInterface
 			return $this->date;
 		}
 		public function getFeedItemLink() {
-			return 'http://trajet/trajet/'.$this->id;
+			return 'http://trajet/trajet/'.$this->ID_trajet;
 		}
 }

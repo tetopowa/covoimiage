@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Participer;
+use AppBundle\Entity\Trajet;
 use AppBundle\Form\ParticiperForm;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -13,16 +14,26 @@ use Symfony\Component\HttpFoundation\Request;
 */
 class ParticiperController extends Controller
 {
+
   /**
-  * @Route("/participer/", name="participer_trajet")
+  * @Route("/reserver/{idtrajet}/{idpersonne}/{nbplaces}", name="reserv")
   */
-  public function addReservationAction($id, $nbPlaces)
+  public function addReservationAction($idtrajet,$idpersonne,$nbplaces)
   {
+    $participer = new Participer();
+    $participer->setIDPersonne($idpersonne);
+    $participer->setNbplaces($nbplaces);
+    $participer->setIDTrajet($idtrajet);
     $em = $this->getDoctrine()->getManager();
-    return $this->redirect($this->generateUrl('my_reservations'));
-
+    $em->persist($participer);
+    $em->flush();
+    $trajet = $em->getRepository('AppBundle:Trajet')->findOneBy(array(
+      'ID_trajet'=> $idtrajet
+    ));
+    $trajet->setNbplaces($trajet->getNbPlaces()-1);
+    $em->flush();
+    return $this->redirectToRoute('my_reservations');
   }
-
 
   /**
   * @Route("/my_reservations", name="my_reservations")

@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
 *
@@ -21,24 +22,11 @@ class ParticiperForm extends AbstractType
 
   public function buildForm(FormBuilderInterface $builder, array $options){
     $builder
-    ->add('ID_trajet',HiddenType::class)
-    ->add('ID_personne',HiddenType::class)
-    ->add('_nbplaces',ChoiceType::class, array(
-        'choices' => array(
-          '1'=>1,
-          '2'=>2,
-          '3'=>3
-        )
-    ))
-    ->getForm();
+    ->add('_ID_trajet',HiddenType::class)
+    ->add('_ID_personne',HiddenType::class)
+    ->add('save', SubmitType::class, array('label' => 'Réserver'));
     }
-    public function configureOptions(OptionsResolver $resolver)
-    {
-      $resolver->setDefaults(array(
-        'data_class' => Participer::class,
-        'validation_groups' => ['Default', 'Participer']
-      ));
-    }
+
 
     public function getBlockPrefix()
     {

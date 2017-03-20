@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity
  * @ORM\Table(name="Participer")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ParticiperRepository")
  * relation n,n entre la table Personne et Trajet
  */
  class Participer
@@ -17,15 +18,15 @@ use Doctrine\ORM\Mapping as ORM;
 	/**
 	 * @ORM\Id
 	 * @ORM\Column(name="ID_trajet", type="integer")
-	 * @ORM\ManyToOne(targetEntity="trajet")
-     * @ORM\JoinColumn(name="ID_trajet", referencedColumnName="ID_trajet")
+	 * @ORM\ManyToOne(targetEntity="Trajet")
+   * @ORM\JoinColumn(name="ID_trajet", referencedColumnName="ID_trajet")
 	 */
 	private $ID_trajet;
 	/**
 	 * @ORM\Id
 	 * @ORM\Column(name="ID_personne", type="integer")
 	 * @ORM\ManyToOne(targetEntity="Personne")
-     * @ORM\JoinColumn(name="ID_personne", referencedColumnName="ID_personne")
+   * @ORM\JoinColumn(name="ID_personne", referencedColumnName="ID_personne")
 	 */
 	private $ID_personne;
 
